@@ -11,5 +11,5 @@ class ChunkPDF(Base):
     id = Column(UUID , primary_key=True , nullable=False)
     pdf_id = Column(UUID, ForeignKey("pdfs.id", ondelete="CASCADE"), nullable=False)
     chunk_text = Column(String , nullable=False)
-    embedding = Column(String , nullable=False)
+    page_number = Column(Integer , nullable=False)
     chunk_number = Column(Integer , nullable=False)
