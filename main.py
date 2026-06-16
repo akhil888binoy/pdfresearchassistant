@@ -5,4 +5,4 @@ from dotenv import load_dotenv
 
 load_dotenv()
 app = FastAPI(debug=os.getenv("DEBUG", "False").lower() == "true")
-# app.include_router(pdf_router)
+app.include_router(pdf_router)

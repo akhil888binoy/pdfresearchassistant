@@ -1,7 +1,6 @@
 
 from src.database.database import Base
-from sqlalchemy import Column,  String, TIMESTAMP, text
-from uuid import UUID
+from sqlalchemy import Column,  String, TIMESTAMP, text , UUID
 
 class PDF(Base):
     __tablename__ = "pdfs"

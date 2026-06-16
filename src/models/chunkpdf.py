@@ -2,8 +2,7 @@
 
 
 from src.database.database import Base
-from sqlalchemy import Column, String,  TIMESTAMP, text, ForeignKey  , Integer
-from uuid import UUID
+from sqlalchemy import Column, String,  TIMESTAMP, text, ForeignKey  , Integer , UUID
 
 class ChunkPDF(Base):
     __tablename__ = "chunkPDFs"

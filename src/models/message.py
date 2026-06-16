@@ -1,8 +1,7 @@
 
 
 from src.database.database import Base
-from sqlalchemy import Column, String,  TIMESTAMP, text, ForeignKey 
-from uuid import UUID
+from sqlalchemy import Column, String,  TIMESTAMP, text, ForeignKey  , UUID
 
 class Message(Base):
     __tablename__ = "messages"

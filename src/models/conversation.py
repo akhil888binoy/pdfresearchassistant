@@ -1,8 +1,7 @@
 
 
 from src.database.database import Base
-from sqlalchemy import Column,TIMESTAMP
-from uuid import UUID
+from sqlalchemy import Column,TIMESTAMP , UUID
 
 class Conversation(Base):
     __tablename__ = "conversations"
