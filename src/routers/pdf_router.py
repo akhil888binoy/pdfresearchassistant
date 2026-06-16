@@ -147,7 +147,11 @@ async def get_messages ( conversation_id : str , session : Session= Depends(get_
 async def get_query( question_request : QuestionRequest , session : Session = Depends(get_session)):
         collc = collections.query(
             query_texts=[str(question_request.question)],
+            n_results=5,
+            include=["documents", "metadatas", "distances"],
         )
+        retrieved_documents = collc.get("documents", [[]])[0]
+        retrieved_metadatas = collc.get("metadatas", [[]])[0]
         message_request = Message(
              id = uuid.uuid4(),
              conversation_id = question_request.conversation_id,
@@ -156,7 +160,7 @@ async def get_query( question_request : QuestionRequest , session : Session = De
              created_at = datetime.now()
         )
         session.add(message_request)
-        prompt=f"You are a helpful research assistant. Use only the provided context to answer. Context {collc.get('documents')} . Question {question_request.question}"
+        prompt=f"You are a helpful research assistant. Use only the provided context to answer. Context {retrieved_documents} . Question {question_request.question}"
         response : ChatResponse = chat(model='gemma3' , messages=[
              {
                   'role' : 'user',
@@ -174,6 +178,13 @@ async def get_query( question_request : QuestionRequest , session : Session = De
         session.commit()
         return {
             "response" : response.message.content,
+            "retrieval_trace": [
+                {
+                    "snippet": document,
+                    "metadata": metadata,
+                }
+                for document, metadata in zip(retrieved_documents, retrieved_metadatas)
+            ],
         }
 
 
